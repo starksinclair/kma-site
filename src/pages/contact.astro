@@ -1,0 +1,106 @@
+---
+import Base from "../layouts/Base.astro";
+---
+<Base title="Contact — KMA Kickstart Marketing Agency">
+  <div class="wrap">
+    <section>
+      <div class="eyebrow">Backstage pass</div>
+      <h2>Let's grow your business <span class="g">together.</span></h2>
+      <p class="sub">
+        Whether you're launching something new or scaling what works, KMA has the strategy
+        to take your brand to the next level. Reach us directly on WhatsApp for the fastest response.
+      </p>
+
+      <div class="contact-grid">
+        <!-- Form -->
+        <div>
+          <form id="contact-form" novalidate>
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@company.com" required />
+            </div>
+            <div class="field">
+              <label for="subject">Subject</label>
+              <input id="subject" name="subject" type="text" placeholder="What's the show about?" />
+            </div>
+            <div class="field">
+              <label for="message">Project details</label>
+              <textarea id="message" name="message" rows="5" placeholder="Tell us about the show you want to put on" required></textarea>
+            </div>
+            <button type="submit" class="btn btn--gold" id="submit-btn">Send message</button>
+            <div class="form-msg" id="form-msg"></div>
+          </form>
+        </div>
+
+        <!-- Info -->
+        <div>
+          <div class="c-item">
+            <span>WhatsApp</span>
+            <a href="https://wa.me/2348064797494" target="_blank" rel="noopener">+234 806 479 7494</a>
+          </div>
+          <div class="c-item">
+            <span>Email</span>
+            <a href="mailto:Partnerships.kma@gmail.com">Partnerships.kma@gmail.com</a>
+          </div>
+          <div class="c-item">
+            <span>Office</span>
+            <span>Virtual — serving clients across Africa &amp; beyond</span>
+          </div>
+          <div class="socials">
+            <a class="soc" href="#" aria-label="Facebook">Facebook</a>
+            <a class="soc" href="#" aria-label="Instagram">Instagram</a>
+            <a class="soc" href="#" aria-label="LinkedIn">LinkedIn</a>
+            <a class="soc" href="#" aria-label="X / Twitter">X</a>
+          </div>
+          <div class="amp-card" style="margin-top:22px">
+            <h3>Fan club (newsletter)</h3>
+            <p>Marketing tips and insights, straight from the tour bus. Coming soon.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</Base>
+
+<script>
+const form = document.getElementById('contact-form') as HTMLFormElement;
+const btn  = document.getElementById('submit-btn') as HTMLButtonElement;
+const msg  = document.getElementById('form-msg') as HTMLDivElement;
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  btn.textContent = 'Sending…';
+  btn.setAttribute('disabled', '');
+  msg.style.display = 'none';
+  msg.className = 'form-msg';
+
+  const body = Object.fromEntries(new FormData(form));
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      msg.textContent = '✅ Message sent — we\'ll be in touch soon!';
+      msg.classList.add('success');
+      form.reset();
+    } else {
+      throw new Error(data.error || 'Unknown error');
+    }
+  } catch (err: any) {
+    msg.textContent = `❌ Something went wrong: ${err.message}`;
+    msg.classList.add('error');
+  } finally {
+    msg.style.display = 'block';
+    btn.textContent = 'Send message';
+    btn.removeAttribute('disabled');
+  }
+});
+</script>

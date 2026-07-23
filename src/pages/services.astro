@@ -1,0 +1,40 @@
+---
+import Base from "../layouts/Base.astro";
+
+const services = [
+  ["Digital Marketing Strategy", "Positioning, channels, budgets, KPIs.", "Opener"],
+  ["Social Media Management", "Always-on channels, on-brand and consistent.", "Crowd fav"],
+  ["Content Creation", "Copy, video, and photography that converts.", "Hit"],
+  ["Brand Identity & Branding", "Naming, voice, and visual systems.", "Anthem"],
+  ["Graphic Design", "Campaign assets across every format.", "Deep cut"],
+  ["Website Design", "Fast, mobile-first, SEO-ready sites.", "Hit"],
+  ["SEO", "Rank for the searches that matter.", "Slow build"],
+  ["Paid Advertising", "Meta, Google, and programmatic done right.", "Banger"],
+  ["Email Marketing", "Sequences and newsletters people actually read.", "B-side"],
+  ["Sports Marketing", "Clubs, academies, athletes, sponsorships.", "Headliner"],
+  ["Event Promotion", "Fill the venue. Sell the moment.", "Live cut"],
+  ["Business Consulting", "Growth advisory for founders and teams.", "Encore"],
+];
+---
+<Base title="Services — KMA Kickstart Marketing Agency">
+  <div class="wrap">
+    <section>
+      <div class="eyebrow">Tonight's setlist</div>
+      <h2>Twelve services. <span class="g">No filler tracks.</span></h2>
+      <p class="sub">Book a single or run the whole show — every service performed live by a professional team.</p>
+      <div class="setlist">
+        <div class="setlist__head"><span>KMA · The Growth Tour</span><span>Setlist 2026</span></div>
+        {services.map(([name, desc, tag], i) => (
+          <div class="song">
+            <span class="song__no">{String(i + 1).padStart(2, "0")}</span>
+            <div><h3>{name}</h3><p>{desc}</p></div>
+            <span class="song__tag">{tag}</span>
+          </div>
+        ))}
+      </div>
+      <div style="margin-top:30px">
+        <a class="btn btn--gold" href="https://wa.me/2348064797494" target="_blank" rel="noopener">Book via WhatsApp</a>
+      </div>
+    </section>
+  </div>
+</Base>
