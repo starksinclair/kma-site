@@ -51,10 +51,10 @@ import Base from "../layouts/Base.astro";
             <span>Virtual — serving clients across Africa &amp; beyond</span>
           </div>
           <div class="socials">
-            <a class="soc" href="#" aria-label="Facebook">Facebook</a>
-            <a class="soc" href="#" aria-label="Instagram">Instagram</a>
-            <a class="soc" href="#" aria-label="LinkedIn">LinkedIn</a>
-            <a class="soc" href="#" aria-label="X / Twitter">X</a>
+            <a class="soc" href="https://www.facebook.com/growwithkma" target="_blank" rel="noopener" aria-label="Facebook">Facebook</a>
+            <a class="soc" href="https://www.instagram.com/growwithkma" target="_blank" rel="noopener" aria-label="Instagram">Instagram</a>
+            <a class="soc" href="https://www.linkedin.com/company/growwithkma" target="_blank" rel="noopener" aria-label="LinkedIn">LinkedIn</a>
+            <a class="soc" href="https://x.com/growwithkma" target="_blank" rel="noopener" aria-label="X / Twitter">X</a>
           </div>
           <div class="amp-card" style="margin-top:22px">
             <h3>Fan club (newsletter)</h3>
@@ -92,6 +92,7 @@ form.addEventListener('submit', async (e) => {
       msg.classList.add('success');
       form.reset();
     } else {
+      console.log(data);
       throw new Error(data.error || 'Unknown error');
     }
   } catch (err: any) {

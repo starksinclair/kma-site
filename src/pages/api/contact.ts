@@ -42,19 +42,31 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  // Pull SMTP config from env (set these in Vercel dashboard)
-  const {
-    SMTP_HOST = "smtp.resend.com",
-    SMTP_PORT = "465",
-    SMTP_USER = "resend",
-    SMTP_PASS,
-    CONTACT_EMAIL = "Partnerships.kma@gmail.com",
-  } = process.env;
+  // Astro loads .env into import.meta.env locally; Vercel injects process.env in prod
+  const SMTP_HOST =
+    import.meta.env.SMTP_HOST || process.env.SMTP_HOST || "smtp.resend.com";
+  const SMTP_PORT =
+    import.meta.env.SMTP_PORT || process.env.SMTP_PORT || "465";
+  const SMTP_USER =
+    import.meta.env.SMTP_USER || process.env.SMTP_USER || "resend";
+  const SMTP_PASS = import.meta.env.SMTP_PASS || process.env.SMTP_PASS;
+  const CONTACT_EMAIL =
+    import.meta.env.CONTACT_EMAIL ||
+    process.env.CONTACT_EMAIL ||
+    "Partnerships.kma@gmail.com";
+  // Must be a verified Resend sender (not the SMTP auth username)
+  const FROM_EMAIL =
+    import.meta.env.FROM_EMAIL ||
+    process.env.FROM_EMAIL ||
+    "noreply@growwithkma.com";
 
   if (!SMTP_PASS) {
     console.error("SMTP_PASS environment variable is not set");
     return new Response(
-      JSON.stringify({ error: "Mail service not configured." }),
+      JSON.stringify({
+        error:
+          "Mail service not configured. Please check your environment variables.",
+      }),
       { status: 500, headers: { "Content-Type": "application/json" } }
     );
   }
@@ -96,7 +108,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     await transporter.sendMail({
-      from: `"KMA Website" <${SMTP_USER}@growwithkma.com>`,
+      from: `"KMA Website" <${FROM_EMAIL}>`,
       to: CONTACT_EMAIL,
       replyTo: `"${name}" <${email}>`,
       subject: mailSubject,
@@ -109,7 +121,8 @@ export const POST: APIRoute = async ({ request }) => {
       headers: { "Content-Type": "application/json" },
     });
   } catch (err: any) {
-    console.error("Nodemailer error:", err);
+    console.error("Nodemailer error:", err?.message || err);
+    if (err?.response) console.error("SMTP response:", err.response);
     return new Response(
       JSON.stringify({ error: "Failed to send email. Please try WhatsApp instead." }),
       { status: 500, headers: { "Content-Type": "application/json" } }
