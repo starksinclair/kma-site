@@ -25,7 +25,7 @@ vercel.com → New Project → Import repo → Framework: Astro → Deploy
 | SMTP_PORT     | 465                            |
 | SMTP_USER     | resend                         |
 | SMTP_PASS     | re_xxxx (your Resend API key) |
-| CONTACT_EMAIL | Partnerships.kma@gmail.com     |
+| CONTACT_EMAIL | partnerships@growwithkma.com   |
 | FROM_EMAIL    | noreply@growwithkma.com (must be verified in Resend; use onboarding@resend.dev for testing) |
 
 Getting Resend API key: resend.com → sign up free → Domains → add growwithkma.com → API Keys → Create
