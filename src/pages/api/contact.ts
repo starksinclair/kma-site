@@ -53,7 +53,7 @@ export const POST: APIRoute = async ({ request }) => {
   const CONTACT_EMAIL =
     import.meta.env.CONTACT_EMAIL ||
     process.env.CONTACT_EMAIL ||
-    "Partnerships.kma@gmail.com";
+    "partnerships@growwithkma.com";
   // Must be a verified Resend sender (not the SMTP auth username)
   const FROM_EMAIL =
     import.meta.env.FROM_EMAIL ||
