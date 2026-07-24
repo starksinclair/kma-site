@@ -1,4 +1,6 @@
 ---
+import Analytics from "@vercel/analytics/astro";
+
 export interface Props {
   title?: string;
   description?: string;
@@ -134,5 +136,6 @@ const currentPath = Astro.url.pathname.replace(/\/$/, "") || "/";
       close.addEventListener('click', closeMenu);
       menu.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
     </script>
+    <Analytics />
   </body>
 </html>
