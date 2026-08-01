@@ -1,0 +1,59 @@
+---
+import Base from "../layouts/Base.astro";
+import { posts } from "../data/posts";
+
+function formatDate(iso: string) {
+  return new Date(iso + "T12:00:00").toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+}
+---
+
+<Base
+  title="DilDaily - Insights & News · growwithkma.com"
+  description="DilDaily - music, entertainment, sports, politics, and lifestyle insights from growwithkma.com."
+>
+  <div class="wrap">
+    <section>
+      <div class="eyebrow">Press tour · Now spinning</div>
+      <h2>DilDaily <span class="g">drops.</span></h2>
+      <p class="sub">
+        Fresh takes on music, entertainment, sports, politics, and lifestyle,
+        pressed as singles. Hit play to read the full story.
+      </p>
+
+      <div class="setlist">
+        <div class="setlist__head">
+          <span>DilDaily · The Insights Tour</span>
+          <span>{posts.length} {posts.length === 1 ? "Single" : "Singles"}</span>
+        </div>
+        {posts.map((post, i) => (
+          <a
+            class="song song--link"
+            href={post.href}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <span class="song__no">{String(i + 1).padStart(2, "0")}</span>
+            <div>
+              <h3>{post.title}</h3>
+              <p>
+                <span class="song__meta">{formatDate(post.date)}</span>
+                {" · "}
+                {post.excerpt}
+              </p>
+            </div>
+            <span class="song__tag">{post.tag}</span>
+            <span class="song__play" aria-hidden="true">▶ Play</span>
+          </a>
+        ))}
+      </div>
+
+      {posts.length === 0 && (
+        <p class="sub" style="margin-top:24px">New drops coming soon.</p>
+      )}
+    </section>
+  </div>
+</Base>

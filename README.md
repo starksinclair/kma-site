@@ -1,4 +1,4 @@
-# KMA — Kickstart Marketing Agency
+# DilDaily
 **growwithkma.com** · Built with Astro + Vercel
 
 ## Local dev
@@ -41,4 +41,5 @@ DNS at registrar:
 - Services list   → src/pages/services.astro (services array)
 - CEO bio         → src/pages/about.astro
 - Social links    → src/pages/contact.astro
+- DilDaily posts  → src/data/posts.ts (add new blog links at the top)
 - WhatsApp number → search 2348064797494 to update everywhere

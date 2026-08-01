@@ -71,7 +71,7 @@ export const POST: APIRoute = async ({ request }) => {
     );
   }
 
-  // Create transporter — swap SMTP details via env vars, no code change needed
+  // Create transporter - swap SMTP details via env vars, no code change needed
   const transporter = nodemailer.createTransport({
     host: SMTP_HOST,
     port: Number(SMTP_PORT),
@@ -83,14 +83,14 @@ export const POST: APIRoute = async ({ request }) => {
   });
 
   const mailSubject = subject?.trim()
-    ? `KMA Contact: ${subject.trim()}`
-    : `KMA Contact form — message from ${name.trim()}`;
+    ? `DilDaily Contact: ${subject.trim()}`
+    : `DilDaily Contact form - message from ${name.trim()}`;
 
   const htmlBody = `
     <div style="font-family:sans-serif;max-width:600px;margin:0 auto;background:#070509;color:#fff;border-radius:12px;overflow:hidden">
       <div style="background:#E6A817;padding:20px 28px">
         <h2 style="margin:0;font-size:1.2rem;color:#070509;font-family:sans-serif">
-          KMA — New contact form submission
+          DilDaily - New contact form submission
         </h2>
       </div>
       <div style="padding:28px">
@@ -108,7 +108,7 @@ export const POST: APIRoute = async ({ request }) => {
 
   try {
     await transporter.sendMail({
-      from: `"KMA Website" <${FROM_EMAIL}>`,
+      from: `"DilDaily" <${FROM_EMAIL}>`,
       to: CONTACT_EMAIL,
       replyTo: `"${name}" <${email}>`,
       subject: mailSubject,
